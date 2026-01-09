@@ -159,13 +159,13 @@
         <section id="mockups" class="flex flex-col gap-32 md:gap-48">
             
             <!-- Project 01 -->
-            <article class="project-item group relative w-full reveal" data-full-img="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop">
+            <article class="project-item group relative w-full reveal" data-full-img="images/mockup1.jpg">
                 <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
                     <!-- Image Placeholder -->
                     <div class="project-img absolute inset-0 w-full h-full bg-neutral-900 flex items-center justify-center">
                         <div class="w-full h-full opacity-80 mix-blend-overlay bg-gradient-to-b from-transparent to-black/50"></div>
                         <!-- Abstract Visual -->
-                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                        <div class="absolute inset-0 bg-[url('images/mockup1.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
                     </div>
                 </div>
                 
@@ -176,10 +176,10 @@
             </article>
 
             <!-- Project 02 -->
-            <article class="project-item group relative w-full reveal" data-full-img="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=2487&auto=format&fit=crop">
+            <article class="project-item group relative w-full reveal" data-full-img="images/mockup2.jpg">
                 <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
                     <div class="project-img absolute inset-0 w-full h-full bg-neutral-800 flex items-center justify-center">
-                         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=2487&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                         <div class="absolute inset-0 bg-[url('images/mockup2.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
                     </div>
                 </div>
                 
@@ -190,10 +190,10 @@
             </article>
 
             <!-- Project 03 -->
-            <article class="project-item group relative w-full reveal" data-full-img="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop">
+            <article class="project-item group relative w-full reveal" data-full-img="images/mockup3.jpg">
                 <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
                     <div class="project-img absolute inset-0 w-full h-full bg-neutral-700 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                        <div class="absolute inset-0 bg-[url('images/mockup3.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
                     </div>
                 </div>
                 
@@ -204,10 +204,10 @@
             </article>
 
              <!-- Project 04 -->
-             <article class="project-item group relative w-full reveal" data-full-img="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop">
+             <article class="project-item group relative w-full reveal" data-full-img="images/mockup4.jpg">
                 <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
                     <div class="project-img absolute inset-0 w-full h-full bg-neutral-700 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                        <div class="absolute inset-0 bg-[url('images/mockup4.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
                     </div>
                 </div>
                 
@@ -251,14 +251,10 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navContent.classList.add('nav-collapsed');
-                navContainer.classList.remove('mix-blend-difference');
-                navContainer.classList.remove('text-white');
-                navContainer.classList.add('text-black');
+                // REMOVED logic that changes color on scroll to keep mix-blend-mode active
             } else {
                 navContent.classList.remove('nav-collapsed');
-                navContainer.classList.add('mix-blend-difference');
-                navContainer.classList.add('text-white');
-                navContainer.classList.remove('text-black');
+                // REMOVED logic that changes color on scroll to keep mix-blend-mode active
             }
         });
 
