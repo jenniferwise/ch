@@ -61,17 +61,25 @@
             transform: translateY(0);
         }
 
-        /* Custom Cursor styling (optional feeling) via CSS hover states */
+        /* Project Hover & Carousel */
         .project-item {
             cursor: pointer;
         }
 
         .project-img-container {
             overflow: hidden;
+            position: relative;
         }
 
+        /* We remove the CSS-only transform scale on the image 
+           because JS is now handling the background image updates. 
+           We apply scale to the container or use a slightly different approach 
+           to avoid jitter during image swaps. */
+        
         .project-img {
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            background-size: cover;
+            background-position: center;
         }
 
         .project-item:hover .project-img {
@@ -93,8 +101,11 @@
 
         /* Minimal scrollbar */
         ::-webkit-scrollbar {
-            width: 0px;
+            width: 6px;
             background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #000000; 
         }
     </style>
 </head>
@@ -136,18 +147,24 @@
         </div>
     </div>
 
-    <!-- Lightbox Overlay -->
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-black hidden items-center justify-center opacity-0 cursor-zoom-out">
-        <button id="lightbox-close" class="absolute top-8 right-8 text-white font-bold text-xl md:text-2xl hover:text-neutral-400 z-[110] mix-blend-difference select-none cursor-pointer">
+    <!-- Lightbox Overlay (Updated for Multiple Images) -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden flex-col items-center opacity-0 overflow-y-auto">
+        
+        <!-- Sticky Close Button -->
+        <button id="lightbox-close" class="fixed top-8 right-8 text-white font-bold text-xl md:text-2xl hover:text-neutral-400 z-[110] mix-blend-difference select-none cursor-pointer">
             ESC
         </button>
-        <img id="lightbox-img" src="" alt="Project View" class="max-w-full max-h-full p-4 md:p-12 object-contain select-none shadow-2xl">
+
+        <!-- Lightbox Content Container -->
+        <div id="lightbox-content" class="w-full max-w-6xl min-h-screen p-4 md:p-12 flex flex-col items-center gap-8 md:gap-16 pt-24 pb-24">
+            <!-- Images will be injected here via JS -->
+        </div>
     </div>
 
     <!-- Main Content -->
     <main class="pt-32 md:pt-40 px-4 md:px-8 pb-20">
         
-        <!-- Intro Statement (Minimal) -->
+        <!-- Intro Statement -->
         <section class="mb-32 md:mb-48 max-w-4xl">
             <h1 class="text-3xl md:text-5xl leading-tight font-bold tracking-tight reveal active">
                 DIGITAL DESIGNER & <br>
@@ -155,68 +172,9 @@
             </h1>
         </section>
 
-        <!-- Mockup List -->
+        <!-- Mockup List (Content Generated via JS) -->
         <section id="mockups" class="flex flex-col gap-32 md:gap-48">
-            
-            <!-- Project 01 -->
-            <article class="project-item group relative w-full reveal" data-full-img="images/mockup1.jpg">
-                <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
-                    <!-- Image Placeholder -->
-                    <div class="project-img absolute inset-0 w-full h-full bg-neutral-900 flex items-center justify-center">
-                        <div class="w-full h-full opacity-80 mix-blend-overlay bg-gradient-to-b from-transparent to-black/50"></div>
-                        <!-- Abstract Visual -->
-                        <div class="absolute inset-0 bg-[url('images/mockup1.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between items-baseline border-t border-black pt-4">
-                    <h2 class="text-lg md:text-xl font-bold">PROJECT ALPHA</h2>
-                    <span class="text-xs md:text-sm text-neutral-500">IDENTITY / 2024</span>
-                </div>
-            </article>
-
-            <!-- Project 02 -->
-            <article class="project-item group relative w-full reveal" data-full-img="images/mockup2.jpg">
-                <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
-                    <div class="project-img absolute inset-0 w-full h-full bg-neutral-800 flex items-center justify-center">
-                         <div class="absolute inset-0 bg-[url('images/mockup2.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between items-baseline border-t border-black pt-4">
-                    <h2 class="text-lg md:text-xl font-bold">PROJECT BETA</h2>
-                    <span class="text-xs md:text-sm text-neutral-500">WEB DESIGN / 2023</span>
-                </div>
-            </article>
-
-            <!-- Project 03 -->
-            <article class="project-item group relative w-full reveal" data-full-img="images/mockup3.jpg">
-                <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
-                    <div class="project-img absolute inset-0 w-full h-full bg-neutral-700 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-[url('images/mockup3.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between items-baseline border-t border-black pt-4">
-                    <h2 class="text-lg md:text-xl font-bold">PROJECT GAMMA</h2>
-                    <span class="text-xs md:text-sm text-neutral-500">CAMPAIGN / 2023</span>
-                </div>
-            </article>
-
-             <!-- Project 04 -->
-             <article class="project-item group relative w-full reveal" data-full-img="images/mockup4.jpg">
-                <div class="w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 overflow-hidden relative mb-4">
-                    <div class="project-img absolute inset-0 w-full h-full bg-neutral-700 flex items-center justify-center">
-                        <div class="absolute inset-0 bg-[url('images/mockup4.jpg')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between items-baseline border-t border-black pt-4">
-                    <h2 class="text-lg md:text-xl font-bold">PROJECT DELTA</h2>
-                    <span class="text-xs md:text-sm text-neutral-500">APP / 2022</span>
-                </div>
-            </article>
-
+            <!-- Projects are rendered here by JavaScript -->
         </section>
 
         <!-- Footer / Info -->
@@ -244,6 +202,177 @@
     </main>
 
     <script>
+        // --- DATA CONFIGURATION ---
+        // Add your image paths here. I've mixed them up to demonstrate the carousel.
+        const projectsData = [
+            {
+                id: 1,
+                title: "PROJECT ALPHA",
+                category: "IDENTITY",
+                // List all photos for this project here
+                images: ["images/mockup1.jpg", "images/mockup2.jpg", "images/mockup3.jpg"]
+            },
+            {
+                id: 2,
+                title: "PROJECT BETA",
+                category: "WEB DESIGN",
+                images: ["images/mockup2.jpg", "images/mockup3.jpg", "images/mockup4.jpg"]
+            },
+            {
+                id: 3,
+                title: "PROJECT GAMMA",
+                category: "CAMPAIGN",
+                images: ["images/mockup3.jpg", "images/mockup4.jpg", "images/mockup1.jpg"]
+            },
+            {
+                id: 4,
+                title: "PROJECT DELTA",
+                category: "APP",
+                images: ["images/mockup4.jpg", "images/mockup1.jpg"]
+            }
+        ];
+
+        // --- RENDER PROJECTS ---
+        const projectsContainer = document.getElementById('mockups');
+
+        function renderProjects() {
+            projectsContainer.innerHTML = projectsData.map((project, index) => `
+                <article class="project-item group relative w-full reveal" data-index="${index}">
+                    <div class="project-img-container w-full aspect-[4/5] md:aspect-[16/9] lg:aspect-[21/9] bg-neutral-100 relative mb-4">
+                        <!-- Background Image Container -->
+                        <div class="project-img absolute inset-0 w-full h-full bg-neutral-900 flex items-center justify-center"
+                             style="background-image: url('${project.images[0]}');">
+                             
+                             <!-- Optional Overlay for contrast if images fail or for style -->
+                             <div class="w-full h-full opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-black"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-baseline border-t border-black pt-4">
+                        <h2 class="text-lg md:text-xl font-bold">${project.title}</h2>
+                        <span class="text-xs md:text-sm text-neutral-500">${project.category} / ${project.images.length} PHOTOS</span>
+                    </div>
+                </article>
+            `).join('');
+            
+            // Re-attach observers since DOM changed
+            attachObservers();
+            // Attach hover events for carousel
+            attachCarouselEvents();
+            // Attach click events for lightbox
+            attachLightboxEvents();
+        }
+
+        // --- CAROUSEL LOGIC ---
+        function attachCarouselEvents() {
+            const items = document.querySelectorAll('.project-item');
+            
+            items.forEach(item => {
+                const imgDiv = item.querySelector('.project-img');
+                const projectIndex = item.getAttribute('data-index');
+                const images = projectsData[projectIndex].images;
+                let interval;
+                let currentImageIndex = 0;
+
+                item.addEventListener('mouseenter', () => {
+                    // Start cycling
+                    if (images.length > 1) {
+                        interval = setInterval(() => {
+                            currentImageIndex = (currentImageIndex + 1) % images.length;
+                            imgDiv.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+                        }, 800); // Change image every 800ms
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    // Stop cycling and reset to cover image (optional: remove reset if you want it to stay)
+                    clearInterval(interval);
+                    currentImageIndex = 0;
+                    imgDiv.style.backgroundImage = `url('${images[0]}')`;
+                });
+            });
+        }
+
+        // --- LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.getElementById('lightbox-content');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function attachLightboxEvents() {
+            const items = document.querySelectorAll('.project-item');
+            
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const projectIndex = item.getAttribute('data-index');
+                    const project = projectsData[projectIndex];
+                    openLightbox(project);
+                });
+            });
+        }
+
+        function openLightbox(project) {
+            // Clear previous content
+            lightboxContent.innerHTML = '';
+            
+            // Add Title header in Lightbox
+            const header = document.createElement('div');
+            header.className = 'text-white text-center mb-8 reveal active';
+            header.innerHTML = `
+                <h2 class="text-2xl md:text-4xl font-bold mb-2">${project.title}</h2>
+                <p class="text-neutral-400 text-sm">${project.category}</p>
+            `;
+            lightboxContent.appendChild(header);
+
+            // Append all images
+            project.images.forEach((src, idx) => {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'w-full mb-8 reveal active'; 
+                // Using different max-widths for variety or consistent full width
+                imgWrapper.innerHTML = `
+                    <img src="${src}" alt="${project.title} Image ${idx + 1}" class="w-full h-auto object-cover shadow-2xl">
+                `;
+                lightboxContent.appendChild(imgWrapper);
+            });
+
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            
+            // Animation timing
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.remove('flex');
+                lightbox.classList.add('hidden');
+                lightboxContent.innerHTML = ''; // Clean up
+            }, 300);
+            document.body.style.overflow = '';
+        }
+
+        lightboxClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeLightbox();
+        });
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.id === 'lightbox-content') {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // --- GENERAL UI LOGIC (Scroll, Menu, Reveal) ---
+        
         // Scroll Logic for Navigation Collapse
         const navContainer = document.getElementById('main-header');
         const navContent = document.getElementById('nav-container');
@@ -251,10 +380,8 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navContent.classList.add('nav-collapsed');
-                // REMOVED logic that changes color on scroll to keep mix-blend-mode active
             } else {
                 navContent.classList.remove('nav-collapsed');
-                // REMOVED logic that changes color on scroll to keep mix-blend-mode active
             }
         });
 
@@ -276,71 +403,25 @@
             link.addEventListener('click', toggleMenu);
         });
 
-        // Intersection Observer for Reveal on Scroll
-        const observerOptions = {
-            threshold: 0.1
-        };
+        // Intersection Observer for Reveal
+        function attachObservers() {
+            const observerOptions = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // LIGHTBOX LOGIC
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
-        const projectItems = document.querySelectorAll('.project-item');
-
-        function openLightbox(url) {
-            lightboxImg.src = url;
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex');
-            // Timeout to allow display change before opacity transition
-            setTimeout(() => {
-                lightbox.classList.remove('opacity-0');
-            }, 10);
-            document.body.style.overflow = 'hidden';
         }
 
-        function closeLightbox() {
-            lightbox.classList.add('opacity-0');
-            setTimeout(() => {
-                lightbox.classList.remove('flex');
-                lightbox.classList.add('hidden');
-                lightboxImg.src = '';
-            }, 300); // match transition duration
-            document.body.style.overflow = '';
-        }
+        // Initialize
+        renderProjects();
 
-        projectItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const url = item.getAttribute('data-full-img');
-                if (url) openLightbox(url);
-            });
-        });
-
-        lightboxClose.addEventListener('click', (e) => {
-            e.stopPropagation();
-            closeLightbox();
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-        });
     </script>
 </body>
 </html>
